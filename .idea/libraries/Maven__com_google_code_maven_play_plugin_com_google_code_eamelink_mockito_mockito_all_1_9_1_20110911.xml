@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.google.code.maven-play-plugin.com.google.code.eamelink-mockito:mockito-all:1.9.1-20110911">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/google/code/maven-play-plugin/com/google/code/eamelink-mockito/mockito-all/1.9.1-20110911/mockito-all-1.9.1-20110911.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/google/code/maven-play-plugin/com/google/code/eamelink-mockito/mockito-all/1.9.1-20110911/mockito-all-1.9.1-20110911-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/google/code/maven-play-plugin/com/google/code/eamelink-mockito/mockito-all/1.9.1-20110911/mockito-all-1.9.1-20110911-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

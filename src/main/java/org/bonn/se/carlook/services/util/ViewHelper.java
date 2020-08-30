@@ -5,7 +5,7 @@ import org.bonn.se.carlook.process.control.LoginControl;
 import org.bonn.se.carlook.process.control.exception.UserNotLoggedInException;
 
 public class ViewHelper {
-    private static void isUserLoggedInA() {
+/*    private static void isUserLoggedInA() {
         String currentRole = null;
 
         try {
@@ -29,5 +29,5 @@ public class ViewHelper {
 
     public static boolean isUserBusinessMan(){
         return LoginControl.getInstance().isBusinessMan();
-    }
+    }*/
 }
