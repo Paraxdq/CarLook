@@ -1,0 +1,209 @@
+// If you edit this file you need to compile the theme. See README.md for details.
+
+// Global variable overrides. Must be declared before importing Valo.
+
+// Defines the plaintext font size, weight and family. Font size affects general component sizing.
+//$v-font-size: 16px;
+//$v-font-weight: 300;
+//$v-font-family: "Open Sans", sans-serif;
+
+// Defines the border used by all components.
+//$v-border: 1px solid (v-shade 0.7);
+//$v-border-radius: 4px;
+
+// Affects the color of some component elements, e.g Button, Panel title, etc
+//$v-background-color: hsl(210, 0%, 98%);
+// Affects the color of content areas, e.g  Panel and Window content, TextField input etc
+//$v-app-background-color: $v-background-color;
+
+// Affects the visual appearance of all components
+//$v-gradient: v-linear 8%;
+//$v-bevel-depth: 30%;
+//$v-shadow-opacity: 5%;
+
+// Defines colors for indicating status (focus, success, failure)
+//$v-focus-color: valo-focus-color(); // Calculates a suitable color automatically
+//$v-friendly-color: #2c9720;
+//$v-error-indicator-color: #ed473b;
+
+// For more information, see: https://vaadin.com/book/-/page/themes.valo.html
+// Example variants can be copy/pasted from https://vaadin.com/docs/v8/framework/articles/ValoExamples.html
+
+//@import "../valo/valo.scss";
+
+@import "../valo/valo.scss";
+@mixin mytheme {
+  @include valo;
+  //General Layout - Start
+  .v-ui {
+    content: "";
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  }
+  .layout_main {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 0;
+    padding-right: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    box-sizing: border-box;
+    background-size: cover;
+    position: relative;
+    z-index: 0;
+  }
+  .layout_main::after {
+    content: "";
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
+  }
+  .panel_FirmaRegister_blue{
+    background: #91BED4;
+    border: 1px solid #304269;
+    outline: 1px #304269;
+    display: block;
+    align-content: center;
+  }
+  .mytitle_FirmaRegister_label{
+    font-family: Helvetica, Arial, Verdana, Tahoma, sans-serif;
+    font-size: 16px;
+    font-weight: lighter;
+    color: white;
+    text-align: center;
+    align-content: center;
+  }
+  .label_FirmaRegister{
+    font-family: Arial, sans-serif;
+    font-size: 20px;
+    font-weight: Bold;
+    color: #F26101;
+    text-align: center;
+  }
+
+  .panel_FirmaRegister_small{
+    font-weight: bolder;
+    background: #91BED4;
+    color: #F26101;
+  }
+
+  //General Layout - End
+
+  //Footer - Start
+  .footer_main {
+    display: flex;
+    flex-direction: row;
+    align-self: center;
+    justify-content: center;
+    padding-top: 30px;
+    padding-bottom: 80px;
+    background: #304269;
+    //background-size: auto;
+  }
+  .footer_main_container {
+    //container specific code if needed
+    border-top: 1px solid #91BED4;
+  }
+  .footer_main_container_copyRight {
+    color: white;
+  }
+  //Footer - End
+
+  //General Layout - End
+
+  // Button - Start
+  .button_login_out {
+    font-family: Helvetica, Arial, Verdana, Tahoma, sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    border: none;
+    outline: none;
+    background: #F26101;
+    box-shadow: none;
+  }
+
+  // Button - End
+
+  //Header - Start
+
+  .mytitle.v-menubar{
+    font-family: Helvetica, Arial, Verdana, Tahoma, sans-serif;
+    font-size: 18px;
+    font-weight: lighter;
+    color: white;
+    text-align: center;
+    background: #91BED4;
+    border: 1px #304269;
+    //box-shadow: none;
+    outline: 1px #304269;
+  }
+
+  //Header- End
+
+//Login-Panel
+  .login .v-panel-content {
+    background: #D9E8F5;
+    border:  #fff;
+    padding: 20px;
+    font-family: Helvetica, Arial, Verdana, Tahoma, sans-serif;
+    color: #304269;
+  }
+  //ICONS
+  .mystyle .FontAwesome {
+      color: #1d69b4;
+      font-size: 20px;
+      margin-top: -8px;
+
+  }
+  .mylabel {
+    background-color: #1d69b4;
+    color: white;
+    padding-left: 10px;
+  }
+  .titel{
+    font-size: large;
+  }
+  .mytitel{
+    font-family: Helvetica, Arial, Verdana, Tahoma, sans-serif;
+    color: #0957a6;
+    padding: 10px;
+    font-size: 18px;
+  }
+  .labelStyle{
+    color: #0957a6;
+    padding: 10px;
+    font-size: 20px;
+  }
+  .labelTitle{
+    color: #0957a6;
+    padding: 10px;
+    font-size: 16px;
+  }
+
+  .panel {
+    overflow: auto;
+  }
+}
+//Login - Panel End
+
+//Joboffer View - Start
+.mytitle_joboffer{
+  font-family: Helvetica, Arial, Verdana, Tahoma, sans-serif;
+  font-size: 18px;
+  font-weight: bolder;
+  color: #304269;
+  text-align: center;
+}
+//Joboffer View - End
+
+
+

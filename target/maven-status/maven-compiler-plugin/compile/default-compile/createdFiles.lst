@@ -1,0 +1,4 @@
+org\bonn\se\carlook\gui\view\MainView.class
+org\bonn\se\carlook\gui\ui\MyUI$MyUIServlet.class
+org\bonn\se\carlook\gui\ui\MyUI.class
+org\bonn\se\carlook\services\util\Views.class
