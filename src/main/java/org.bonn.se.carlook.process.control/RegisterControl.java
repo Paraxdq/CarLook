@@ -1,15 +1,19 @@
 package org.bonn.se.carlook.process.control;
 
+import com.vaadin.ui.UI;
 import org.bonn.se.carlook.model.dao.SalesmanDAO;
 import org.bonn.se.carlook.model.dao.UserDAO;
+import org.bonn.se.carlook.model.factory.SalesmanFactory;
 import org.bonn.se.carlook.model.factory.UserFactory;
 import org.bonn.se.carlook.model.objects.dto.UserDTO;
 import org.bonn.se.carlook.model.objects.entity.Salesman;
 import org.bonn.se.carlook.model.objects.entity.User;
 import org.bonn.se.carlook.process.control.exception.UserAlreadyRegisteredException;
 import org.bonn.se.carlook.services.util.GlobalHelper;
+import org.bonn.se.carlook.services.util.Globals;
 import org.bonn.se.carlook.services.util.RegistrationResult;
 import org.bonn.se.carlook.services.util.RegistrationResult.FailureType;
+import org.bonn.se.carlook.services.util.Role;
 
 import javax.jws.soap.SOAPBinding;
 import java.sql.ResultSet;
@@ -56,35 +60,26 @@ public class RegisterControl {
         if (userDAO.select(user.getEMail()) != null)
             throw new UserAlreadyRegisteredException();
 
-        ResultSet rs = userDAO.add(user);
+        user = userDAO.add(user);
 
         if(IsCompanyMember(user.getEMail())){
+            Salesman salesman = SalesmanFactory.createEntityFromUserEntity(user);
+
             SalesmanDAO salesmanDAO = SalesmanDAO.getInstance();
+            salesmanDAO.add(salesman);
 
             //TODO continue
         } else{
             //TODO CustomerDAO add
         }
 
-        try {
-            if (rs.next()) {
-                user.setUserId(rs.getInt("userid"));
-            } else{
-                logger.log(Level.SEVERE, "RegisterControl - Error: No userid was found!");
-                return false;
-            }
-        } catch (SQLException ex) {
-            logger.log(Level.SEVERE, "RegisterControl - Error: Error in registerUser function!", ex);
-            return false;
-        }
-
         //return result;
         return true;
     }
 
-    private void checkValue(String value, FailureType failureType){
+    /*private void checkValue(String value, FailureType failureType){
         if(StringIsEmptyOrNull(value)) {
             failures.add(failureType);
         }
-    }
+    }*/
 }

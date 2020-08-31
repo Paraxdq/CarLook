@@ -7,9 +7,7 @@ import com.vaadin.ui.*;
 import org.bonn.se.carlook.model.objects.dto.UserDTO;
 import org.bonn.se.carlook.process.control.RegisterControl;
 import org.bonn.se.carlook.process.control.exception.UserAlreadyRegisteredException;
-import org.bonn.se.carlook.services.util.Globals;
-import org.bonn.se.carlook.services.util.RegistrationResult;
-import org.bonn.se.carlook.services.util.Views;
+import org.bonn.se.carlook.services.util.*;
 
 import java.util.List;
 
@@ -106,8 +104,12 @@ public class MainView extends VerticalLayout implements View {
                 notification.setDelayMsec(5000);
                 notification.show(Page.getCurrent());
 
+                //TODO Same for login
                 UI.getCurrent().getSession().setAttribute(Globals.CURRENT_USER,
                         userDTO);
+
+                UI.getCurrent().getSession().setAttribute(Globals.CURRENT_ROLE,
+                        GlobalHelper.IsCompanyMember(userDTO.getEMail()) ? Role.Salesman : Role.Customer);
 
                 UI.getCurrent().getNavigator().navigateTo(Views.MAIN);
             }

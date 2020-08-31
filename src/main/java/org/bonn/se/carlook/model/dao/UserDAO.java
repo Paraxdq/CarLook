@@ -26,7 +26,7 @@ public class UserDAO extends AbstractDAO<User> {
     }
 
     @Override
-    public ResultSet add(User entity) {
+    public User add(User entity) {
         String sql = String.format(
                 "INSERT INTO %s.%s " +
                 "(%s, %s, %s, %s) " +
@@ -50,12 +50,20 @@ public class UserDAO extends AbstractDAO<User> {
             stm.executeUpdate();
 
             rs = stm.getGeneratedKeys();
+
+            if (rs.next()) {
+                entity.setUserId(rs.getInt("userid"));
+            } else{
+                logger.log(Level.SEVERE, "UserDAO - Error: No userid was found!");
+                return null;
+            }
+
         } catch(SQLException ex){
             logger.log(Level.SEVERE, "UserDAO - Error: Error in add function!", ex);
             return null;
         }
 
-        return rs;
+        return entity;
     }
 
     @Override
@@ -80,7 +88,7 @@ public class UserDAO extends AbstractDAO<User> {
 
             try (ResultSet rs = stm.executeQuery()) {
                 if (rs.next())
-                    mapResultSetToEntity(rs, user);
+                    super.mapResultSetToEntity(rs, user);
                 else
                     return null;
             }
@@ -97,12 +105,4 @@ public class UserDAO extends AbstractDAO<User> {
         return false;
     }
 
-    private void mapResultSetToEntity(ResultSet rs, User entity) throws SQLException {
-        // Mapping
-        entity.setEMail(rs.getString("email"));
-        entity.setPassword(rs.getString("password"));
-
-        entity.setForename(rs.getString("forename"));
-        entity.setSurname(rs.getString("surname"));
-    }
 }
