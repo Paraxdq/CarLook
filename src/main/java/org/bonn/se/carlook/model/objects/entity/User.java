@@ -14,6 +14,14 @@ public class User extends AbstractEntity {
 
     public List<Role> roles;
 
+    public int getUserId(){
+        return this.userId;
+    }
+
+    public void setUserId(int userid) {
+        this.userId = userid;
+    }
+
     public String getEMail() {
         return this.eMail;
     }

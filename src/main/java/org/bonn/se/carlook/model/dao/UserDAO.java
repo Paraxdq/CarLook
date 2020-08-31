@@ -11,12 +11,21 @@ import java.util.logging.Level;
 
 public class UserDAO extends AbstractDAO<User> {
 
+    private static UserDAO userDAO = null;
+
+    public static UserDAO getInstance() {
+        if (userDAO == null) {
+            userDAO = new UserDAO();
+        }
+        return userDAO;
+    }
+
     private UserDAO() {
         super.table = Globals.TABLE_USER;
     }
 
     @Override
-    public ResultSet add(User entity) throws SQLException {
+    public ResultSet add(User entity) {
         String sql = String.format(
                 "INSERT INTO %s.%s " +
                 "(email, password, surname, lastname) " +
@@ -45,12 +54,12 @@ public class UserDAO extends AbstractDAO<User> {
     }
 
     @Override
-    public boolean update(User entity) throws SQLException {
+    public boolean update(User entity) {
         return false;
     }
 
     @Override
-    public User select(String identifier) throws SQLException {
+    public User select(String identifier) {
         User user = UserFactory.createEntity();
 
         String sql = String.format(

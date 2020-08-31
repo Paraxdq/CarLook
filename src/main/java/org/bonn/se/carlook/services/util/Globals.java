@@ -12,7 +12,7 @@ public class Globals {
     public static final String TABLE_STUDENT_IDENTIFIER = "studentid";
 
     public static final String TABLE_USER = "tab_user";
-    public static final String TABLE_STUDENT = "tab_student";
+    public static final String TABLE_SALESMAN = "...";
     public static final String TABLE_COMPANY = "tab_unternehmen";
     public static final String TABLE_JOBOFFER = "tab_stellenanzeige";
     public static final String TABLE_APPLICATION = "tab_bewerbung";
