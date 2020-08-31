@@ -2,6 +2,7 @@ package org.bonn.se.carlook.model.dao;
 
 import org.bonn.se.carlook.model.factory.UserFactory;
 import org.bonn.se.carlook.model.objects.entity.User;
+import org.bonn.se.carlook.services.util.GlobalHelper;
 import org.bonn.se.carlook.services.util.Globals;
 
 import java.sql.PreparedStatement;
@@ -28,10 +29,14 @@ public class UserDAO extends AbstractDAO<User> {
     public ResultSet add(User entity) {
         String sql = String.format(
                 "INSERT INTO %s.%s " +
-                "(email, password, surname, lastname) " +
+                "(%s, %s, %s, %s) " +
                 "VALUES(?, ?, ?, ?);",
                 Globals.DATABASE_NAME,
-                super.table);
+                super.table,
+                Globals.TABLE_USER_EMAIL,
+                Globals.TABLE_USER_PASSWORD,
+                Globals.TABLE_USER_FORENAME,
+                Globals.TABLE_USER_SURNAME);
 
         ResultSet rs = null;
         PreparedStatement stm = connection.getPreparedStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
@@ -76,6 +81,8 @@ public class UserDAO extends AbstractDAO<User> {
             try (ResultSet rs = stm.executeQuery()) {
                 if (rs.next())
                     mapResultSetToEntity(rs, user);
+                else
+                    return null;
             }
         } catch(SQLException ex){
             logger.log(Level.SEVERE, "UserDAO: Error in select function!", ex);

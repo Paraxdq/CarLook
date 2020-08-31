@@ -47,16 +47,21 @@ public class RegisterControl {
         logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     }
 
-    public RegistrationResult<UserDTO> registerUser(UserDTO userDTO) throws UserAlreadyRegisteredException {
-        RegistrationResult<UserDTO> result = new RegistrationResult<>();
+    public boolean registerUser(UserDTO userDTO) throws UserAlreadyRegisteredException {
+        //RegistrationResult<UserDTO> result = new RegistrationResult<>();
         UserDAO userDAO = UserDAO.getInstance();
 
         User user = UserFactory.createEntityFromDTO(userDTO);
+
+        if (userDAO.select(user.getEMail()) != null)
+            throw new UserAlreadyRegisteredException();
 
         ResultSet rs = userDAO.add(user);
 
         if(IsCompanyMember(user.getEMail())){
             SalesmanDAO salesmanDAO = SalesmanDAO.getInstance();
+
+            //TODO continue
         } else{
             //TODO CustomerDAO add
         }
@@ -66,12 +71,15 @@ public class RegisterControl {
                 user.setUserId(rs.getInt("userid"));
             } else{
                 logger.log(Level.SEVERE, "RegisterControl - Error: No userid was found!");
+                return false;
             }
         } catch (SQLException ex) {
             logger.log(Level.SEVERE, "RegisterControl - Error: Error in registerUser function!", ex);
+            return false;
         }
 
-        return result;
+        //return result;
+        return true;
     }
 
     private void checkValue(String value, FailureType failureType){

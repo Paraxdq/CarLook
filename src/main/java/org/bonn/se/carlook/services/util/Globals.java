@@ -6,23 +6,20 @@ public class Globals {
     public static final String CURRENT_USER = "currentUser";
     public static final String CURRENT_ROLE = "currentRole";
 
-    public static final String DATABASE_NAME = "collahbrs2020";
+    public static final String DATABASE_NAME = "CarLook";
 
     public static final String TABLE_USER_IDENTIFIER = "userid";
-    public static final String TABLE_STUDENT_IDENTIFIER = "studentid";
 
-    public static final String TABLE_USER = "tab_user";
-    public static final String TABLE_SALESMAN = "...";
-    public static final String TABLE_COMPANY = "tab_unternehmen";
-    public static final String TABLE_JOBOFFER = "tab_stellenanzeige";
-    public static final String TABLE_APPLICATION = "tab_bewerbung";
+    public static final String TABLE_USER = "table_user";
+    public static final String TABLE_SALESMAN = "table_salesman";
+    public static final String TABLE_CUSTOMER = "table_customer";
 
-    public static final String TABLE_USER_FIRSTNAME = "vorname";
+    //public static final String TABLE_JOBOFFER = "tab_stellenanzeige";
+    //public static final String TABLE_APPLICATION = "tab_bewerbung";
+
+    public static final String TABLE_USER_FORENAME = "forename";
+    public static final String TABLE_USER_SURNAME = "surname";
     public static final String TABLE_USER_EMAIL = "email";
-    public static final String TABLE_USER_PASSWORD = "passwort";
-
-    public static final String TABLE_STUDENT_INTRODUCTION = "kurzvorstellung";
-
-    public static final String TABLE_COMPANY_NAME = "unternehmensname";
+    public static final String TABLE_USER_PASSWORD = "password";
 
 }

@@ -72,18 +72,18 @@ public class MainView extends VerticalLayout implements View {
             }
 
             RegisterControl reg = RegisterControl.getInstance();
-            UserDTO user = new UserDTO();
+            UserDTO userDTO = new UserDTO();
 
-            user.setForename(tfForeName.getValue());
-            user.setSurname(tfSurName.getValue());
-            user.setEMail(tfEMail.getValue());
-            user.setPassword(tfPassword.getValue());
-            user.setPassword(tfPasswordConfirm.getValue());
+            userDTO.setForename(tfForeName.getValue());
+            userDTO.setSurname(tfSurName.getValue());
+            userDTO.setEMail(tfEMail.getValue());
+            userDTO.setPassword(tfPassword.getValue());
+            userDTO.setPassword(tfPasswordConfirm.getValue());
 
-            RegistrationResult<UserDTO> result = null;
+            boolean result = false;
 
             try{
-                result = reg.registerUser(user);
+                result = reg.registerUser(userDTO);
             } catch (UserAlreadyRegisteredException e) {
                 Notification notification= new  Notification("Fehler",
                         "Ein Nutzer mit dieser E-Mail Adresse ist bereits registriert!",
@@ -99,7 +99,7 @@ public class MainView extends VerticalLayout implements View {
                 return;
             }
 
-            if(result.getResult()) {
+            if(!result) {
                 Notification notification = new Notification("Erfolg",
                         "Die Registration war erfolgreich!", Notification.Type.HUMANIZED_MESSAGE);
 
@@ -107,20 +107,16 @@ public class MainView extends VerticalLayout implements View {
                 notification.show(Page.getCurrent());
 
                 UI.getCurrent().getSession().setAttribute(Globals.CURRENT_USER,
-                        result.getRegisteredUserDTO());
+                        userDTO);
 
                 UI.getCurrent().getNavigator().navigateTo(Views.MAIN);
             }
             else{
-                List<RegistrationResult.FailureType> failList = result.getReasons();
-                for (RegistrationResult.FailureType item : failList) {
+                Notification notification = new Notification("Fehler",
+                        "Ein unbekannter Fehler ist aufgetreten, bitte wenden Sie sich an einen Administrator!", Notification.Type.ERROR_MESSAGE);
 
-                    Notification notification = new Notification("Fehler",
-                            "Ein unbekannter Fehler ist aufgetreten, bitte wenden Sie sich an einen Administrator!", Notification.Type.ERROR_MESSAGE);
-
-                    notification.setDelayMsec(5000);
-                    notification.show(Page.getCurrent());
-                }
+                notification.setDelayMsec(5000);
+                notification.show(Page.getCurrent());
             }
         });
     }
