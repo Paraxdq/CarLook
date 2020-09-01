@@ -57,6 +57,9 @@ public class JDBCConnection {
         }catch(SQLException ex){
             logger.log(Level.SEVERE, "Database Error: Could not create a statement!", ex);
             return null;
+        }catch(Exception ex){
+            logger.log(Level.SEVERE, "Database Error: There is no valid connection!", ex);
+            return null;
         }
     }
 
@@ -69,6 +72,9 @@ public class JDBCConnection {
             return this.conn.prepareStatement(sql, returnGeneratedKeys);
         }catch(SQLException ex){
             logger.log(Level.SEVERE, "Database Error: Could not create a preparedStatement!", ex);
+            return null;
+        }catch(Exception ex){
+            logger.log(Level.SEVERE, "Database Error: There is no valid connection!", ex);
             return null;
         }
     }
