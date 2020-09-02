@@ -48,27 +48,33 @@ public class JDBCConnection {
     }
 
     public Statement getStatement() {
-        try{
+        try {
             if(this.conn.isClosed()) {
                 this.openConnection();
             }
 
             return this.conn.createStatement();
-        }catch(SQLException ex){
+        } catch(SQLException ex){
             logger.log(Level.SEVERE, "Database Error: Could not create a statement!", ex);
+            return null;
+        } catch(Exception ex) {
+            logger.log(Level.SEVERE, "Database Error: There is no valid connection!", ex);
             return null;
         }
     }
 
     public PreparedStatement getPreparedStatement(String sql, int returnGeneratedKeys){
-        try{
+        try {
             if(this.conn.isClosed()) {
                 this.openConnection();
             }
 
             return this.conn.prepareStatement(sql, returnGeneratedKeys);
-        }catch(SQLException ex){
+        } catch(SQLException ex){
             logger.log(Level.SEVERE, "Database Error: Could not create a preparedStatement!", ex);
+            return null;
+        } catch(Exception ex) {
+            logger.log(Level.SEVERE, "Database Error: There is no valid connection!", ex);
             return null;
         }
     }

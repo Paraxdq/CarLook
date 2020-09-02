@@ -1,9 +1,9 @@
 package org.bonn.se.carlook.model.dao;
 
+import org.bonn.se.carlook.model.factory.CustomerFactory;
 import org.bonn.se.carlook.model.factory.SalesmanFactory;
-import org.bonn.se.carlook.model.factory.UserFactory;
+import org.bonn.se.carlook.model.objects.entity.Customer;
 import org.bonn.se.carlook.model.objects.entity.Salesman;
-import org.bonn.se.carlook.model.objects.entity.User;
 import org.bonn.se.carlook.services.util.Globals;
 
 import java.sql.PreparedStatement;
@@ -11,23 +11,24 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 
-public class SalesmanDAO extends AbstractDAO<Salesman> {
+public class CustomerDAO extends AbstractDAO<Customer>{
 
-    private static SalesmanDAO salesmanDAO = null;
+    private static CustomerDAO customerDAO = null;
 
-    public static SalesmanDAO getInstance() {
-        if (salesmanDAO == null) {
-            salesmanDAO = new SalesmanDAO();
+    public static CustomerDAO getInstance() {
+        if (customerDAO == null) {
+            customerDAO = new CustomerDAO();
         }
-        return salesmanDAO;
+        return customerDAO;
     }
 
-    private SalesmanDAO() {
-        super.table = Globals.TABLE_SALESMAN;
+    private CustomerDAO() {
+        super.table = Globals.TABLE_CUSTOMER;
     }
+
 
     @Override
-    public Salesman add(Salesman entity) {
+    public Customer add(Customer entity) {
         String sql = String.format(
                 "INSERT INTO %s.%s " +
                         "(%s) " +
@@ -37,8 +38,8 @@ public class SalesmanDAO extends AbstractDAO<Salesman> {
                 Globals.TABLE_USER_IDENTIFIER);
 
         ResultSet rs = null;
-
         try(PreparedStatement stm = connection.getPreparedStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)){
+
             if(stm == null)
                 return null;
 
@@ -46,15 +47,15 @@ public class SalesmanDAO extends AbstractDAO<Salesman> {
 
             stm.executeUpdate();
 
+            /*
             rs = stm.getGeneratedKeys();
-
             //TODO UNNÖTIG
             if (rs.next()) {
                 entity.setUserId(rs.getInt("userid"));
             } else{
                 logger.log(Level.SEVERE, "UserDAO - Error: No userid was found!");
                 return null;
-            }
+            }*/
 
         } catch(SQLException ex){
             logger.log(Level.SEVERE, "UserDAO - Error: Error in add function!", ex);
@@ -65,14 +66,15 @@ public class SalesmanDAO extends AbstractDAO<Salesman> {
     }
 
     @Override
-    public boolean update(Salesman entity) {
+    public boolean update(Customer entity) throws SQLException {
         return false;
     }
 
     @Override
-    public Salesman select(String identifier) {
-        Salesman salesman = SalesmanFactory.createEntity();
+    public Customer select(String identifier) {
+        Customer customer = CustomerFactory.createEntity();
 
+        //TODO TEST SQL STATEMENT (WHERE CLAUSE?) same in salesman
         String sql = String.format(
                 "SELECT * " +
                         "FROM %s.%s " +
@@ -85,6 +87,7 @@ public class SalesmanDAO extends AbstractDAO<Salesman> {
                 Globals.TABLE_USER_EMAIL);
 
         try(PreparedStatement stm = connection.getPreparedStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)){
+
             if(stm == null)
                 return null;
 
@@ -92,7 +95,7 @@ public class SalesmanDAO extends AbstractDAO<Salesman> {
 
             try (ResultSet rs = stm.executeQuery()) {
                 if (rs.next())
-                    super.mapResultSetToEntity(rs, salesman);
+                    super.mapResultSetToEntity(rs, customer);
                 else
                     return null;
             }
@@ -101,12 +104,11 @@ public class SalesmanDAO extends AbstractDAO<Salesman> {
             return null;
         }
 
-        return salesman;
+        return customer;
     }
 
     @Override
-    public boolean remove(Salesman entity) {
+    public boolean remove(Customer entity) {
         return false;
     }
-
 }

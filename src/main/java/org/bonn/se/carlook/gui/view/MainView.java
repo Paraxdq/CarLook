@@ -97,7 +97,7 @@ public class MainView extends VerticalLayout implements View {
                 return;
             }
 
-            if(!result) {
+            if(result) {
                 Notification notification = new Notification("Erfolg",
                         "Die Registration war erfolgreich!", Notification.Type.HUMANIZED_MESSAGE);
 

@@ -39,9 +39,11 @@ public class UserDAO extends AbstractDAO<User> {
                 Globals.TABLE_USER_SURNAME);
 
         ResultSet rs = null;
-        PreparedStatement stm = connection.getPreparedStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
 
-        try {
+        try(PreparedStatement stm = connection.getPreparedStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)){
+            if(stm == null)
+                return null;
+
             stm.setString(1, entity.getEMail());
             stm.setString(2, entity.getPassword());
             stm.setString(3, entity.getForename());
@@ -84,6 +86,9 @@ public class UserDAO extends AbstractDAO<User> {
                 Globals.TABLE_USER_EMAIL);
 
         try(PreparedStatement stm = connection.getPreparedStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)){
+            if(stm == null)
+                return null;
+
             stm.setString(1, identifier);
 
             try (ResultSet rs = stm.executeQuery()) {
