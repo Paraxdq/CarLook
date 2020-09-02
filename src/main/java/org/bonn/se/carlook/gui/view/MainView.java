@@ -5,7 +5,7 @@ import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.Page;
 import com.vaadin.ui.*;
 import org.bonn.se.carlook.model.objects.dto.UserDTO;
-import org.bonn.se.carlook.process.control.RegisterControl;
+import org.bonn.se.carlook.process.control.exception.RegisterControl;
 import org.bonn.se.carlook.process.control.exception.UserAlreadyRegisteredException;
 import org.bonn.se.carlook.services.util.*;
 

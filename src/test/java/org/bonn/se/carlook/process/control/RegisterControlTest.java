@@ -4,6 +4,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.bonn.se.carlook.model.dao.SalesmanDAO;
 import org.bonn.se.carlook.model.objects.dto.UserDTO;
 import org.bonn.se.carlook.model.objects.entity.Salesman;
+import org.bonn.se.carlook.process.control.exception.RegisterControl;
 import org.bonn.se.carlook.process.control.exception.UserAlreadyRegisteredException;
 import org.junit.jupiter.api.Test;
 

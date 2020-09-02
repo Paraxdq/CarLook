@@ -30,8 +30,8 @@ public class SalesmanDAO extends AbstractDAO<Salesman> {
     public Salesman add(Salesman entity) {
         String sql = String.format(
                 "INSERT INTO %s.%s " +
-                        "(%s) " +
-                        "VALUES(?);",
+                "(%s) " +
+                "VALUES(?);",
                 Globals.DATABASE_NAME,
                 super.table,
                 Globals.TABLE_USER_IDENTIFIER);
@@ -75,9 +75,9 @@ public class SalesmanDAO extends AbstractDAO<Salesman> {
 
         String sql = String.format(
                 "SELECT * " +
-                        "FROM %s.%s " +
-                        "NATURAL JOIN %s.%s " +
-                        "WHERE %s = ?",
+                "FROM %s.%s " +
+                "NATURAL JOIN %s.%s " +
+                "WHERE %s = ?",
                 Globals.DATABASE_NAME,
                 Globals.TABLE_USER,
                 Globals.DATABASE_NAME,
