@@ -33,10 +33,13 @@ public class MyUI extends UI {
 
         navigator = new Navigator( this,this );
 
-        navigator.addView(Views.MAIN, (Class<? extends View>) MainView.class); //Cast notwendig
+        navigator.addView(Views.MAIN, (Class<? extends View>) MainView.class);
+        navigator.addView(Views.LOGIN, (Class<? extends View>) LoginRegisterView.class);
+        navigator.addView(Views.INSERT_CAR, (Class<? extends View>) InsertCarView.class);
+        navigator.addView(Views.SHOW_INSERTED_CARS, (Class<? extends View>) ShowInsertedCarsView.class);
 
         //"LoginView" als Default, nach erfolgreichem Login redirect erfolgt zur "MainView"
-        UI.getCurrent().getNavigator().navigateTo(Views.MAIN);
+        UI.getCurrent().getNavigator().navigateTo(Views.LOGIN);
     }
 
     @WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)

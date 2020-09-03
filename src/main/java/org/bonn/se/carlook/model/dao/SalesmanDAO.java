@@ -29,14 +29,14 @@ public class SalesmanDAO extends AbstractDAO<Salesman> {
     @Override
     public Salesman add(Salesman entity) {
         String sql = String.format(
-                "INSERT INTO %s.%s " +
-                "(%s) " +
-                "VALUES(?);",
-                Globals.DATABASE_NAME,
-                super.table,
-                Globals.TABLE_USER_IDENTIFIER);
+            "INSERT INTO %s.%s " +
+            "(%s) " +
+            "VALUES(?);",
+            Globals.DATABASE_NAME,
+            super.table,
+            Globals.TABLE_USER_IDENTIFIER);
 
-        ResultSet rs = null;
+        //ResultSet rs = null;
 
         try(PreparedStatement stm = connection.getPreparedStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)){
             if(stm == null)
@@ -46,15 +46,15 @@ public class SalesmanDAO extends AbstractDAO<Salesman> {
 
             stm.executeUpdate();
 
-            rs = stm.getGeneratedKeys();
+            /*rs = stm.getGeneratedKeys();
 
-            //TODO UNNÖTIG
+            //TODO UNNÖTIG weil id von user genommen wird, id muss nicht zurückgegeben werden
             if (rs.next()) {
                 entity.setUserId(rs.getInt("userid"));
             } else{
                 logger.log(Level.SEVERE, "UserDAO - Error: No userid was found!");
                 return null;
-            }
+            }*/
 
         } catch(SQLException ex){
             logger.log(Level.SEVERE, "UserDAO - Error: Error in add function!", ex);
@@ -74,15 +74,15 @@ public class SalesmanDAO extends AbstractDAO<Salesman> {
         Salesman salesman = SalesmanFactory.createEntity();
 
         String sql = String.format(
-                "SELECT * " +
-                "FROM %s.%s " +
-                "NATURAL JOIN %s.%s " +
-                "WHERE %s = ?",
-                Globals.DATABASE_NAME,
-                Globals.TABLE_USER,
-                Globals.DATABASE_NAME,
-                super.table,
-                Globals.TABLE_USER_EMAIL);
+            "SELECT * " +
+            "FROM %s.%s " +
+            "NATURAL JOIN %s.%s " +
+            "WHERE %s = ?",
+            Globals.DATABASE_NAME,
+            Globals.TABLE_USER,
+            Globals.DATABASE_NAME,
+            super.table,
+            Globals.TABLE_USER_EMAIL);
 
         try(PreparedStatement stm = connection.getPreparedStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)){
             if(stm == null)

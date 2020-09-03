@@ -35,7 +35,7 @@ public class UserDTO extends AbstractDTO {
         return this.surname;
     }
 
-    public void setSurname(String Surname){
+    public void setSurname(String surname){
         this.surname = surname;
     }
 

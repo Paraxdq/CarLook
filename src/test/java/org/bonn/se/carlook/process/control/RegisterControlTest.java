@@ -4,7 +4,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.bonn.se.carlook.model.dao.SalesmanDAO;
 import org.bonn.se.carlook.model.objects.dto.UserDTO;
 import org.bonn.se.carlook.model.objects.entity.Salesman;
-import org.bonn.se.carlook.process.control.exception.RegisterControl;
+import org.bonn.se.carlook.process.control.RegisterControl;
 import org.bonn.se.carlook.process.control.exception.UserAlreadyRegisteredException;
 import org.junit.jupiter.api.Test;
 
@@ -15,7 +15,6 @@ class RegisterControlTest {
     @Test
     void TestUserAlreadyRegisteredException() {
         RegisterControl reg = RegisterControl.getInstance();
-        //RegistrationResult<UserDTO> result = new RegistrationResult<>();
 
         String exceptedResult = "org.bonn.se.carlook.process.control.exception.UserAlreadyRegisteredException";
         String result = "";

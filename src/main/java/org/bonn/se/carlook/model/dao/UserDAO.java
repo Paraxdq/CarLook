@@ -78,12 +78,12 @@ public class UserDAO extends AbstractDAO<User> {
         User user = UserFactory.createEntity();
 
         String sql = String.format(
-                "SELECT * " +
-                "FROM %s.%s " +
-                "WHERE %s = ?",
-                Globals.DATABASE_NAME,
-                super.table,
-                Globals.TABLE_USER_EMAIL);
+            "SELECT * " +
+            "FROM %s.%s " +
+            "WHERE %s = ?",
+            Globals.DATABASE_NAME,
+            super.table,
+            Globals.TABLE_USER_EMAIL);
 
         try(PreparedStatement stm = connection.getPreparedStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)){
             if(stm == null)
@@ -110,4 +110,7 @@ public class UserDAO extends AbstractDAO<User> {
         return false;
     }
 
+    public User checkCredentials(String email, String password){
+        return null;
+    }
 }

@@ -162,11 +162,10 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
+           <!--<plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-clean-plugin</artifactId>
                 <version>3.0.0</version>
-                <!-- Clean up also any pre-compiled themes -->
                 <configuration>
                     <filesets>
                         <fileset>
@@ -178,7 +177,7 @@
                         </fileset>
                     </filesets>
                 </configuration>
-            </plugin>
+            </plugin>-->
 
             <!-- The Jetty plugin allows us to easily test the development build by
                 running jetty:run on the command line. -->
@@ -192,49 +191,5 @@
             </plugin>
         </plugins>
     </build>
-
-    <profiles>
-        <profile>
-            <!-- Vaadin pre-release repositories -->
-            <id>vaadin-prerelease</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-
-            <repositories>
-                <repository>
-                    <id>vaadin-prereleases</id>
-                    <url>http://maven.vaadin.com/vaadin-prereleases</url>
-                </repository>
-                <repository>
-                    <id>vaadin-snapshots</id>
-                    <url>https://oss.sonatype.org/content/repositories/vaadin-snapshots/</url>
-                    <releases>
-                        <enabled>false</enabled>
-                    </releases>
-                    <snapshots>
-                        <enabled>true</enabled>
-                    </snapshots>
-                </repository>
-            </repositories>
-            <pluginRepositories>
-                <pluginRepository>
-                    <id>vaadin-prereleases</id>
-                    <url>http://maven.vaadin.com/vaadin-prereleases</url>
-                </pluginRepository>
-                <pluginRepository>
-                    <id>vaadin-snapshots</id>
-                    <url>https://oss.sonatype.org/content/repositories/vaadin-snapshots/</url>
-                    <releases>
-                        <enabled>false</enabled>
-                    </releases>
-                    <snapshots>
-                        <enabled>true</enabled>
-                    </snapshots>
-                </pluginRepository>
-            </pluginRepositories>
-        </profile>
-
-    </profiles>
 
 </project>

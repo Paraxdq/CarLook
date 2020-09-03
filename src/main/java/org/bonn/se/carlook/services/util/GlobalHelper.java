@@ -17,9 +17,6 @@ public class GlobalHelper {
         Pattern p = Pattern.compile("\\b[a-zA-Z\\d._%-]+@carlook.de\\b");
         Matcher m = p.matcher(email.toLowerCase());
 
-        if (m.find())
-            return true;
-
-        return false;
+        return m.find();
     }
 }

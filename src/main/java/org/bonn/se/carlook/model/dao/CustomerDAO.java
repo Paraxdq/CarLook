@@ -1,9 +1,7 @@
 package org.bonn.se.carlook.model.dao;
 
 import org.bonn.se.carlook.model.factory.CustomerFactory;
-import org.bonn.se.carlook.model.factory.SalesmanFactory;
 import org.bonn.se.carlook.model.objects.entity.Customer;
-import org.bonn.se.carlook.model.objects.entity.Salesman;
 import org.bonn.se.carlook.services.util.Globals;
 
 import java.sql.PreparedStatement;
@@ -30,16 +28,14 @@ public class CustomerDAO extends AbstractDAO<Customer>{
     @Override
     public Customer add(Customer entity) {
         String sql = String.format(
-                "INSERT INTO %s.%s " +
-                        "(%s) " +
-                        "VALUES(?);",
-                Globals.DATABASE_NAME,
-                super.table,
-                Globals.TABLE_USER_IDENTIFIER);
+            "INSERT INTO %s.%s " +
+            "(%s) " +
+            "VALUES(?);",
+            Globals.DATABASE_NAME,
+            super.table,
+            Globals.TABLE_USER_IDENTIFIER);
 
-        ResultSet rs = null;
         try(PreparedStatement stm = connection.getPreparedStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)){
-
             if(stm == null)
                 return null;
 
@@ -76,18 +72,17 @@ public class CustomerDAO extends AbstractDAO<Customer>{
 
         //TODO TEST SQL STATEMENT (WHERE CLAUSE?) same in salesman
         String sql = String.format(
-                "SELECT * " +
-                        "FROM %s.%s " +
-                        "NATURAL JOIN %s.%s " +
-                        "WHERE %s = ?",
-                Globals.DATABASE_NAME,
-                Globals.TABLE_USER,
-                Globals.DATABASE_NAME,
-                super.table,
-                Globals.TABLE_USER_EMAIL);
+            "SELECT * " +
+            "FROM %s.%s " +
+            "NATURAL JOIN %s.%s " +
+            "WHERE %s = ?",
+            Globals.DATABASE_NAME,
+            Globals.TABLE_USER,
+            Globals.DATABASE_NAME,
+            super.table,
+            Globals.TABLE_USER_EMAIL);
 
         try(PreparedStatement stm = connection.getPreparedStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)){
-
             if(stm == null)
                 return null;
 
