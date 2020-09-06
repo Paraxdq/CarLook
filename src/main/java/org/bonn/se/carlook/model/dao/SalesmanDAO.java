@@ -1,9 +1,7 @@
 package org.bonn.se.carlook.model.dao;
 
 import org.bonn.se.carlook.model.factory.SalesmanFactory;
-import org.bonn.se.carlook.model.factory.UserFactory;
 import org.bonn.se.carlook.model.objects.entity.Salesman;
-import org.bonn.se.carlook.model.objects.entity.User;
 import org.bonn.se.carlook.services.util.Globals;
 
 import java.sql.PreparedStatement;
@@ -92,7 +90,7 @@ public class SalesmanDAO extends AbstractDAO<Salesman> {
 
             try (ResultSet rs = stm.executeQuery()) {
                 if (rs.next())
-                    super.mapResultSetToEntity(rs, salesman);
+                    super.mapResultSetToUserEntity(rs, salesman);
                 else
                     return null;
             }

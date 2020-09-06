@@ -1,6 +1,6 @@
-package org.bonn.se.carlook.model.objects.entity;
+package org.bonn.se.carlook.model.objects.dto;
 
-public class Car extends AbstractEntity {
+public class CarDTO extends AbstractDTO {
 
     int carId;
     String carBrand;
@@ -9,7 +9,6 @@ public class Car extends AbstractEntity {
     String description;
 
     int salesman;
-
 
     public int getCarId(){
         return this.carId;

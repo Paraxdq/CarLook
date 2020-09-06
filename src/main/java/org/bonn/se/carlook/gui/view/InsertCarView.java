@@ -3,6 +3,10 @@ package org.bonn.se.carlook.gui.view;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.ui.*;
+import org.bonn.se.carlook.model.dao.CarDAO;
+import org.bonn.se.carlook.model.factory.CarFactory;
+import org.bonn.se.carlook.model.objects.dto.CarDTO;
+import org.bonn.se.carlook.process.control.CarControl;
 import org.bonn.se.carlook.services.util.*;
 
 public class InsertCarView extends VerticalLayout implements View {
@@ -22,34 +26,50 @@ public class InsertCarView extends VerticalLayout implements View {
 
         this.addComponent(vLayout);
 
-        //Label registerLabel = new Label("Gratis registrieren in weniger als 2 Minuten!");
-        //vLayout.addComponent(registerLabel);
-
         FormLayout form = new FormLayout();
 
-        TextField tfForeName = new TextField("Marke");
-        tfForeName.setRequiredIndicatorVisible(true);
-        form.addComponent(tfForeName);
+        TextField tfCarBrand = new TextField("Marke:");
+        tfCarBrand.setRequiredIndicatorVisible(true);
+        form.addComponent(tfCarBrand);
 
-        TextField tfSurName = new TextField("USW");
-        tfSurName.setRequiredIndicatorVisible(true);
-        form.addComponent(tfSurName);
+        TextField tfCarConstruction = new TextField("Baujahr:");
+        tfCarConstruction.setRequiredIndicatorVisible(true);
+        form.addComponent(tfCarConstruction);
 
-        TextField tfEMail = new TextField("...");
-        tfEMail.setRequiredIndicatorVisible(true);
-        form.addComponent(tfEMail);
+        TextField tfCarDescription = new TextField("Beschreibung:");
+        tfCarDescription.setRequiredIndicatorVisible(true);
+        form.addComponent(tfCarDescription);
 
-        PasswordField tfPassword = new PasswordField("Passwort");
-        tfPassword.setRequiredIndicatorVisible(true);
-        form.addComponent(tfPassword);
+        Button insertButton = new Button("Einstellen");
 
-        Button registerButton = new Button("Registrieren");
-
-        form.addComponent(registerButton);
+        form.addComponent(insertButton);
 
         HorizontalLayout hLayout = new HorizontalLayout();
         hLayout.addComponentsAndExpand(form);
         vLayout.addComponent(hLayout);
 
+        insertButton.addClickListener((Button.ClickListener) clickEvent -> {
+            if(tfCarBrand.isEmpty() || tfCarConstruction.isEmpty() || tfCarDescription.isEmpty()){
+                Notification.show("Bitte füllen Sie alle mit '*' markierten Felder aus!", Notification.Type.ERROR_MESSAGE);
+                return;
+            }
+
+            try {
+                Integer.parseInt(tfCarConstruction.getValue());
+            }
+            catch (NumberFormatException e) {
+                Notification.show("Das Baujahr muss ein gültiges Jahr (z.B. 2000) sein!", Notification.Type.ERROR_MESSAGE);
+                return;
+            }
+
+            CarDAO carDAO = CarDAO.getInstance();
+            CarDTO carDTO = CarFactory.createDTO();
+
+            carDTO.setCarBrand(tfCarBrand.getValue());
+            carDTO.setYearOfConstruction(Integer.parseInt(tfCarConstruction.getValue()));
+            carDTO.setDescription(tfCarDescription.getValue());
+
+            CarControl.getInstance().AddNewCar(carDTO);
+        });
     }
 }

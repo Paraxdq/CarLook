@@ -2,7 +2,6 @@ package org.bonn.se.carlook.model.dao;
 
 import org.bonn.se.carlook.model.factory.UserFactory;
 import org.bonn.se.carlook.model.objects.entity.User;
-import org.bonn.se.carlook.services.util.GlobalHelper;
 import org.bonn.se.carlook.services.util.Globals;
 
 import java.sql.PreparedStatement;
@@ -54,7 +53,7 @@ public class UserDAO extends AbstractDAO<User> {
             rs = stm.getGeneratedKeys();
 
             if (rs.next()) {
-                entity.setUserId(rs.getInt("userid"));
+                entity.setUserId(rs.getInt(Globals.TABLE_USER_IDENTIFIER));
             } else{
                 logger.log(Level.SEVERE, "UserDAO - Error: No userid was found!");
                 return null;
@@ -93,7 +92,7 @@ public class UserDAO extends AbstractDAO<User> {
 
             try (ResultSet rs = stm.executeQuery()) {
                 if (rs.next())
-                    super.mapResultSetToEntity(rs, user);
+                    super.mapResultSetToUserEntity(rs, user);
                 else
                     return null;
             }

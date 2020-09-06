@@ -62,7 +62,7 @@ public class CustomerDAO extends AbstractDAO<Customer>{
     }
 
     @Override
-    public boolean update(Customer entity) throws SQLException {
+    public boolean update(Customer entity) {
         return false;
     }
 
@@ -90,7 +90,7 @@ public class CustomerDAO extends AbstractDAO<Customer>{
 
             try (ResultSet rs = stm.executeQuery()) {
                 if (rs.next())
-                    super.mapResultSetToEntity(rs, customer);
+                    super.mapResultSetToUserEntity(rs, customer);
                 else
                     return null;
             }
