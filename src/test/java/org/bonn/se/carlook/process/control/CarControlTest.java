@@ -20,6 +20,20 @@ class CarControlTest {
 
     @Test
     void getReservedCarsFromUser() {
+        int userid = 31;
+
+        User user = UserFactory.createEntity();
+        user.setUserId(userid);
+
+        CarDAO carDAO = CarDAO.getInstance();
+
+        List<CarDTO> carDTOList = carDAO.getAllReservedCars(user);
+
+        for (CarDTO carDTO:carDTOList) {
+            System.out.println(carDTO.getCarId());
+        }
+        
+        assertFalse(carDTOList.isEmpty());
     }
 
     @Test
