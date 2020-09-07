@@ -24,5 +24,10 @@ class CarControlTest {
 
     @Test
     void getAllCars() {
+        CarDAO carDAO = CarDAO.getInstance();
+
+        List<CarDTO> carDTOList = carDAO.getAllCars();
+
+        assertFalse(carDTOList.isEmpty());
     }
 }
