@@ -1,5 +1,6 @@
 package org.bonn.se.carlook.model.dao;
 
+import org.bonn.se.carlook.model.objects.dto.CarDTO;
 import org.bonn.se.carlook.model.objects.entity.AbstractEntity;
 import org.bonn.se.carlook.model.objects.entity.Car;
 import org.bonn.se.carlook.model.objects.entity.User;
@@ -47,5 +48,14 @@ public abstract class AbstractDAO<E extends AbstractEntity> {
         entity.setCarBrand(rs.getString(Globals.TABLE_CAR_BRAND));
         entity.setYearOfConstruction(rs.getInt(Globals.TABLE_CAR_CONSTRUCTION));
         entity.setDescription(rs.getString(Globals.TABLE_CAR_DESC));
+    }
+
+    protected void mapResultSetToCarDTO(ResultSet rs, CarDTO dto) throws SQLException {
+        // Mapping
+        dto.setCarId(rs.getInt(Globals.TABLE_CAR_IDENTIFIER));
+
+        dto.setCarBrand(rs.getString(Globals.TABLE_CAR_BRAND));
+        dto.setYearOfConstruction(rs.getInt(Globals.TABLE_CAR_CONSTRUCTION));
+        dto.setDescription(rs.getString(Globals.TABLE_CAR_DESC));
     }
 }

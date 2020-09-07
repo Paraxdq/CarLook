@@ -37,6 +37,8 @@ public class MyUI extends UI {
         navigator.addView(Views.LOGIN, (Class<? extends View>) LoginRegisterView.class);
         navigator.addView(Views.INSERT_CAR, (Class<? extends View>) InsertCarView.class);
         navigator.addView(Views.SHOW_INSERTED_CARS, (Class<? extends View>) ShowInsertedCarsView.class);
+        navigator.addView(Views.SEARCHCAR, (Class<? extends View>) SearchCarView.class);
+        navigator.addView(Views.SHOW_RESERVED_CARS, (Class<? extends View>) ShowReservedCarsView.class);
 
         //"LoginView" als Default, nach erfolgreichem Login redirect erfolgt zur "MainView"
         UI.getCurrent().getNavigator().navigateTo(Views.LOGIN);

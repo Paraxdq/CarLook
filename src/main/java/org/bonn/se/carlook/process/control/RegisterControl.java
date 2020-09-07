@@ -11,10 +11,7 @@ import org.bonn.se.carlook.model.objects.entity.Customer;
 import org.bonn.se.carlook.model.objects.entity.Salesman;
 import org.bonn.se.carlook.model.objects.entity.User;
 import org.bonn.se.carlook.process.control.exception.UserAlreadyRegisteredException;
-import org.bonn.se.carlook.services.util.RegistrationResult.FailureType;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

@@ -55,6 +55,19 @@ public class MainView extends VerticalLayout implements View {
     }
 
     private void CustomerView(){
+        Button insertCarButton = new Button("Autos durchsuchen...");
 
+        Button showInsertedCarsButton = new Button("Reservierte Autos anzeigen...");
+
+        mainVLayout.addComponent(insertCarButton);
+        mainVLayout.addComponent(showInsertedCarsButton);
+
+        insertCarButton.addClickListener((Button.ClickListener) clickEvent -> {
+            UI.getCurrent().getNavigator().navigateTo(Views.SEARCHCAR);
+        });
+
+        showInsertedCarsButton.addClickListener((Button.ClickListener) clickEvent -> {
+            UI.getCurrent().getNavigator().navigateTo(Views.SHOW_RESERVED_CARS);
+        });
     }
 }

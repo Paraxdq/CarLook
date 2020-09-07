@@ -6,4 +6,7 @@ public class Views {
 
     public static final String INSERT_CAR = "insert" ;
     public static final String SHOW_INSERTED_CARS = "show_inserted_cars" ;
+
+    public static final String SEARCHCAR = "search" ;
+    public static final String SHOW_RESERVED_CARS = "show_reserved_cars" ;
 }

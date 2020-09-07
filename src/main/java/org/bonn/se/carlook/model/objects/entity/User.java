@@ -50,7 +50,7 @@ public class User extends AbstractEntity {
         return this.surname;
     }
 
-    public void setSurname(String Surname){
+    public void setSurname(String surname){
         this.surname = surname;
     }
 

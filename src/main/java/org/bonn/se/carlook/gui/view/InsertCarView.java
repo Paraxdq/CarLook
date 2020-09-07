@@ -2,8 +2,8 @@ package org.bonn.se.carlook.gui.view;
 
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
+import com.vaadin.server.Page;
 import com.vaadin.ui.*;
-import org.bonn.se.carlook.model.dao.CarDAO;
 import org.bonn.se.carlook.model.factory.CarFactory;
 import org.bonn.se.carlook.model.objects.dto.CarDTO;
 import org.bonn.se.carlook.process.control.CarControl;
@@ -62,14 +62,23 @@ public class InsertCarView extends VerticalLayout implements View {
                 return;
             }
 
-            CarDAO carDAO = CarDAO.getInstance();
             CarDTO carDTO = CarFactory.createDTO();
 
             carDTO.setCarBrand(tfCarBrand.getValue());
             carDTO.setYearOfConstruction(Integer.parseInt(tfCarConstruction.getValue()));
             carDTO.setDescription(tfCarDescription.getValue());
 
-            CarControl.getInstance().AddNewCar(carDTO);
+            boolean result = CarControl.getInstance().AddNewCar(carDTO);
+
+            if(result){
+                Notification notification = new Notification("Erfolg",
+                        "Das Auto wurde erfolgreich eingestellt!", Notification.Type.HUMANIZED_MESSAGE);
+
+                notification.setDelayMsec(5000);
+                notification.show(Page.getCurrent());
+
+                UI.getCurrent().getNavigator().navigateTo(Views.MAIN);
+            }
         });
     }
 }
