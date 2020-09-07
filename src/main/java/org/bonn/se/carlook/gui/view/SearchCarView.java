@@ -37,6 +37,24 @@ public class SearchCarView extends VerticalLayout implements View {
 
         this.addComponent(vLayout);
 
+        FormLayout searchForm = new FormLayout();
+
+        TextField tfSearchCarBrand = new TextField("Marke");
+        tfSearchCarBrand.setRequiredIndicatorVisible(true);
+        searchForm.addComponent(tfSearchCarBrand);
+        TextField tfSearchCarConstruction = new TextField("Baujahr");
+        tfSearchCarConstruction.setRequiredIndicatorVisible(true);
+        searchForm.addComponent(tfSearchCarConstruction);
+        TextField tfSearchCarDescription = new TextField("Beschreibung");
+        tfSearchCarDescription.setRequiredIndicatorVisible(true);
+        searchForm.addComponent(tfSearchCarDescription);
+
+        Button searchButton = new Button("Suchen");
+
+        searchForm.addComponent(searchButton);
+        
+        vLayout.addComponent(searchForm);
+        
         Grid<CarDTO> grid = new Grid<>(CarDTO.class);
         grid.setSelectionMode(Grid.SelectionMode.SINGLE);
 
