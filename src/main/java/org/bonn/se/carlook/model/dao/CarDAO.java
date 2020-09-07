@@ -2,7 +2,6 @@ package org.bonn.se.carlook.model.dao;
 
 import org.bonn.se.carlook.model.factory.CarFactory;
 import org.bonn.se.carlook.model.objects.dto.CarDTO;
-import org.bonn.se.carlook.model.objects.dto.UserDTO;
 import org.bonn.se.carlook.model.objects.entity.Car;
 import org.bonn.se.carlook.model.objects.entity.User;
 import org.bonn.se.carlook.process.control.exception.CarAlreadyReservedException;
@@ -11,7 +10,6 @@ import org.bonn.se.carlook.services.util.Globals;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;

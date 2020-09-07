@@ -1,6 +1,12 @@
 package org.bonn.se.carlook.process.control;
 
+import org.bonn.se.carlook.model.dao.CarDAO;
+import org.bonn.se.carlook.model.factory.UserFactory;
+import org.bonn.se.carlook.model.objects.dto.CarDTO;
+import org.bonn.se.carlook.model.objects.entity.User;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
