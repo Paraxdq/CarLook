@@ -1,6 +1,5 @@
 package org.bonn.se.carlook.process.control;
 
-import org.apache.commons.lang3.RandomStringUtils;
 import org.bonn.se.carlook.model.dao.SalesmanDAO;
 import org.bonn.se.carlook.model.objects.dto.UserDTO;
 import org.bonn.se.carlook.model.objects.entity.Salesman;
@@ -44,7 +43,7 @@ class RegisterControlTest {
 
         UserDTO userDTO = new UserDTO();
 
-        userDTO.setEMail(generateRandomEmail(8, "@test.de"));
+        userDTO.setEMail(TestHelper.generateRandomEmail(8, "@test.de"));
         userDTO.setPassword("abc");
         userDTO.setForename("Günther");
         userDTO.setSurname("Müller");
@@ -71,7 +70,7 @@ class RegisterControlTest {
 
         UserDTO userDTO = new UserDTO();
 
-        userDTO.setEMail(generateRandomEmail(8, "@cArLoOk.de"));
+        userDTO.setEMail(TestHelper.generateRandomEmail(8, "@cArLoOk.de"));
         userDTO.setPassword("abc");
         userDTO.setForename("Günther");
         userDTO.setSurname("Müller");
@@ -89,13 +88,5 @@ class RegisterControlTest {
         Salesman salesman = SalesmanDAO.getInstance().select(userDTO.getEMail());
 
         assertNotNull(salesman);
-    }
-
-    public static String generateRandomEmail(int length, String domain) {
-        String allowedChars = "abcdefghijklmnopqrstuvwxyz" + "1234567890" + "_-.";
-        String email = "";
-        String temp = RandomStringUtils.random(length, allowedChars);
-        email += temp + domain;
-        return email;
     }
 }
