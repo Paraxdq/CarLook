@@ -1,6 +1,7 @@
 package org.bonn.se.carlook.services.util;
 
 public class Globals {
+    public static final String CHROMEDRIVER_LOCATION = "E:\\Fachhochschule\\4. Semester\\2020 SS - SE-II\\Praktische Hausarbeit\\chromedriver.exe";
     public static final boolean DEBUG_MODE = true;
 
     public static final String CURRENT_USER = "currentUser";
