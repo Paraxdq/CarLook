@@ -43,21 +43,27 @@ public class LoginRegisterView extends VerticalLayout implements View {
 
         TextField tfRegisterForeName = new TextField("Vorname");
         tfRegisterForeName.setRequiredIndicatorVisible(true);
+        tfRegisterForeName.setId("tfRegisterForeName");
         registerForm.addComponent(tfRegisterForeName);
         TextField tfRegisterSurName = new TextField("Nachname");
         tfRegisterSurName.setRequiredIndicatorVisible(true);
+        tfRegisterSurName.setId("tfRegisterSurName");
         registerForm.addComponent(tfRegisterSurName);
         TextField tfRegisterEMail = new TextField("E-Mail");
         tfRegisterEMail.setRequiredIndicatorVisible(true);
+        tfRegisterEMail.setId("tfRegisterEMail");
         registerForm.addComponent(tfRegisterEMail);
         PasswordField tfRegisterPassword = new PasswordField("Passwort");
         tfRegisterPassword.setRequiredIndicatorVisible(true);
+        tfRegisterPassword.setId("tfRegisterPassword");
         registerForm.addComponent(tfRegisterPassword);
         PasswordField tfRegisterPasswordConfirm = new PasswordField("Passwort bestätigen");
         tfRegisterPasswordConfirm.setRequiredIndicatorVisible(true);
+        tfRegisterPasswordConfirm.setId("tfRegisterPasswordConfirm");
         registerForm.addComponent(tfRegisterPasswordConfirm);
 
         Button registerButton = new Button("Registrieren");
+        registerButton.setId("btnRegister");
 
         registerForm.addComponent(registerButton);
 
