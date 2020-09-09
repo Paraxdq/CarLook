@@ -45,16 +45,10 @@ public class RegisterControl {
 
         User user = UserFactory.createEntityFromDTO(userDTO);
 
-        // wenn User bereits existiert
-        if (userDAO.select(user.getEMail()) != null)
+        if(userDAO.select(user.getEMail()) != null)
             throw new UserAlreadyRegisteredException();
 
         user = userDAO.add(user);
-
-        if(user == null){
-            logger.log(Level.SEVERE, "RegisterControl: User was null!");
-            return false;
-        }
 
         // ist der User ein Vertriebler?
         if(IsCompanyMember(user.getEMail())){

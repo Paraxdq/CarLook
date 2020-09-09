@@ -35,6 +35,9 @@ public class LoginControl {
         if(user == null)
             throw new DatabaseConnectionError();
 
+        if(user.getPassword() == null)
+            throw new InvalidLoginData();
+
         if(user.getPassword().equals(userDTO.getPassword())){
             return UserFactory.createDTOFromEntity(user);
         } else {

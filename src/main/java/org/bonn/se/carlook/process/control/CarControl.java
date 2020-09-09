@@ -1,23 +1,18 @@
 package org.bonn.se.carlook.process.control;
 
-import com.vaadin.ui.Notification;
 import org.bonn.se.carlook.model.dao.CarDAO;
 import org.bonn.se.carlook.model.dao.SalesmanDAO;
 import org.bonn.se.carlook.model.dao.UserDAO;
 import org.bonn.se.carlook.model.factory.CarFactory;
-import org.bonn.se.carlook.model.factory.UserFactory;
 import org.bonn.se.carlook.model.objects.dto.CarDTO;
 import org.bonn.se.carlook.model.objects.dto.UserDTO;
 import org.bonn.se.carlook.model.objects.entity.Car;
 import org.bonn.se.carlook.model.objects.entity.Salesman;
 import org.bonn.se.carlook.model.objects.entity.User;
 import org.bonn.se.carlook.process.control.exception.CarAlreadyReservedException;
-import org.bonn.se.carlook.process.control.exception.LoginControl;
+import org.bonn.se.carlook.services.util.GlobalHelper;
 import org.bonn.se.carlook.services.util.ViewHelper;
 
-import java.lang.reflect.Array;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -25,6 +20,7 @@ public class CarControl {
 
     // Such Funktionalität für Autos
     // Endkunde soll nach Autos suchen können
+    private final CarDAO carDAO = CarDAO.getInstance();
 
     private Logger logger;
     private static CarControl instance = null;
@@ -44,7 +40,7 @@ public class CarControl {
         UserDTO userDTO = ViewHelper.getLoggedInUserDTO();
         User user = UserDAO.getInstance().select(userDTO.getEMail());
 
-        CarDAO.getInstance().reserveCar(carId, user);
+        carDAO.reserveCar(carId, user);
     }
 
     public boolean AddNewCar(CarDTO carDTO){
@@ -58,7 +54,6 @@ public class CarControl {
         Salesman salesman = SalesmanDAO.getInstance().select(ViewHelper.getLoggedInUserDTO().getEMail());
         car.setSalesman(salesman.getUserId());
 
-        CarDAO carDAO = CarDAO.getInstance();
         carDAO.add(car);
 
         return true;
@@ -67,19 +62,33 @@ public class CarControl {
     public List<CarDTO> getInsertedCarsFromUser(UserDTO userDTO) {
         User user = UserDAO.getInstance().select(userDTO.getEMail());
 
-        CarDAO carDAO = CarDAO.getInstance();
         return carDAO.getAllInsertedCars(user);
     }
 
     public List<CarDTO> getReservedCarsFromUser(UserDTO userDTO) {
         User user = UserDAO.getInstance().select(userDTO.getEMail());
 
-        CarDAO carDAO = CarDAO.getInstance();
         return carDAO.getAllReservedCars(user);
     }
 
     public List<CarDTO> getAllCars() {
-        CarDAO carDAO = CarDAO.getInstance();
         return carDAO.getAllCars();
+    }
+
+    public List<CarDTO> getFilteredCars(String carBrand, int yearOfConstruction, String carDescription) {
+        boolean filterCarBrand = false;
+        boolean filterCarDescription = false;
+        boolean filterYearOfConstruction = false;
+
+        if(!GlobalHelper.StringIsEmptyOrNull(carBrand))
+            filterCarBrand = true;
+
+        if(!GlobalHelper.StringIsEmptyOrNull(carDescription))
+            filterCarDescription = true;
+
+        if(yearOfConstruction != 0)
+            filterYearOfConstruction = true;
+
+        return carDAO.getFilteredCars(filterCarBrand, carBrand, filterYearOfConstruction, yearOfConstruction, filterCarDescription, carDescription);
     }
 }

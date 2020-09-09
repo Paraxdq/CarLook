@@ -2,6 +2,7 @@ package org.bonn.se.carlook.model.dao;
 
 import org.bonn.se.carlook.model.factory.UserFactory;
 import org.bonn.se.carlook.model.objects.entity.User;
+import org.bonn.se.carlook.process.control.exception.InvalidLoginData;
 import org.bonn.se.carlook.services.util.Globals;
 
 import java.sql.PreparedStatement;
