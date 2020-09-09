@@ -90,7 +90,7 @@ public class SearchCarView extends VerticalLayout implements View {
                 List<CarDTO> cars = CarControl.getInstance().getFilteredCars(carBrand, yearOfConstruction, description);
 
                 if(cars == null){
-                    Label noReservedCars = new Label("Es wurden keine passenden Autos gefunden--!");
+                    Label noReservedCars = new Label("Es wurden keine passenden Autos gefunden!");
                     vLayout.addComponent(noReservedCars);
                 } else {
 
