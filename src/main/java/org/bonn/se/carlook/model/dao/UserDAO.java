@@ -2,6 +2,7 @@ package org.bonn.se.carlook.model.dao;
 
 import org.bonn.se.carlook.model.factory.UserFactory;
 import org.bonn.se.carlook.model.objects.entity.User;
+import org.bonn.se.carlook.process.control.exception.DatabaseConnectionError;
 import org.bonn.se.carlook.process.control.exception.InvalidLoginData;
 import org.bonn.se.carlook.services.util.Globals;
 
@@ -74,7 +75,7 @@ public class UserDAO extends AbstractDAO<User> {
     }
 
     @Override
-    public User select(String identifier) {
+    public User select(String identifier) throws DatabaseConnectionError {
         User user = UserFactory.createEntity();
 
         String sql = String.format(
@@ -87,7 +88,7 @@ public class UserDAO extends AbstractDAO<User> {
 
         try(PreparedStatement stm = connection.getPreparedStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)){
             if(stm == null)
-                return null;
+                throw new DatabaseConnectionError();
 
             stm.setString(1, identifier);
 

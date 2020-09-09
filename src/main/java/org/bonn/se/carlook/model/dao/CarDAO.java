@@ -5,6 +5,7 @@ import org.bonn.se.carlook.model.objects.dto.CarDTO;
 import org.bonn.se.carlook.model.objects.entity.Car;
 import org.bonn.se.carlook.model.objects.entity.User;
 import org.bonn.se.carlook.process.control.exception.CarAlreadyReservedException;
+import org.bonn.se.carlook.process.control.exception.DatabaseConnectionError;
 import org.bonn.se.carlook.services.util.GlobalHelper;
 import org.bonn.se.carlook.services.util.Globals;
 
@@ -250,7 +251,7 @@ public class CarDAO extends AbstractDAO<Car> {
 
     public List<CarDTO> getFilteredCars(boolean filterCarBrand, String carBrand,
                                         boolean filterYearOfConstruction, int yearOfConstruction,
-                                        boolean filterCarDescription, String carDescription) {
+                                        boolean filterCarDescription, String carDescription) throws DatabaseConnectionError {
         List<CarDTO> carDTOList = new ArrayList<>();
 
         String sql = String.format(
@@ -269,7 +270,7 @@ public class CarDAO extends AbstractDAO<Car> {
 
         try(PreparedStatement stm = connection.getPreparedStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)){
             if(stm == null)
-                return null;
+                throw new DatabaseConnectionError();
 
             /*stm.setString(1, carBrand);
             stm.setInt(2, yearOfConstruction);

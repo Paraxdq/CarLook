@@ -2,6 +2,7 @@ package org.bonn.se.carlook.model.dao;
 
 import org.bonn.se.carlook.model.factory.SalesmanFactory;
 import org.bonn.se.carlook.model.objects.entity.Salesman;
+import org.bonn.se.carlook.process.control.exception.DatabaseConnectionError;
 import org.bonn.se.carlook.services.util.Globals;
 
 import java.sql.PreparedStatement;
@@ -68,7 +69,7 @@ public class SalesmanDAO extends AbstractDAO<Salesman> {
     }
 
     @Override
-    public Salesman select(String identifier) {
+    public Salesman select(String identifier) throws DatabaseConnectionError {
         Salesman salesman = SalesmanFactory.createEntity();
 
         String sql = String.format(
@@ -84,7 +85,7 @@ public class SalesmanDAO extends AbstractDAO<Salesman> {
 
         try(PreparedStatement stm = connection.getPreparedStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)){
             if(stm == null)
-                return null;
+                throw new DatabaseConnectionError();
 
             stm.setString(1, identifier);
 

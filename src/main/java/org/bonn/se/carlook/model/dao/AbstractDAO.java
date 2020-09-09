@@ -4,6 +4,7 @@ import org.bonn.se.carlook.model.objects.dto.CarDTO;
 import org.bonn.se.carlook.model.objects.entity.AbstractEntity;
 import org.bonn.se.carlook.model.objects.entity.Car;
 import org.bonn.se.carlook.model.objects.entity.User;
+import org.bonn.se.carlook.process.control.exception.DatabaseConnectionError;
 import org.bonn.se.carlook.process.control.exception.InvalidLoginData;
 import org.bonn.se.carlook.services.util.Globals;
 import org.bonn.se.carlook.services.util.JDBCConnection;
@@ -27,7 +28,7 @@ public abstract class AbstractDAO<E extends AbstractEntity> {
 
     public abstract boolean update(E entity);
 
-    public abstract E select(String identifier) throws InvalidLoginData;
+    public abstract E select(String identifier) throws InvalidLoginData, DatabaseConnectionError;
 
     public abstract boolean remove(E entity);
 

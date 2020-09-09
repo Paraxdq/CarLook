@@ -10,9 +10,11 @@ import org.bonn.se.carlook.model.objects.entity.Car;
 import org.bonn.se.carlook.model.objects.entity.Salesman;
 import org.bonn.se.carlook.model.objects.entity.User;
 import org.bonn.se.carlook.process.control.exception.CarAlreadyReservedException;
+import org.bonn.se.carlook.process.control.exception.DatabaseConnectionError;
 import org.bonn.se.carlook.services.util.GlobalHelper;
 import org.bonn.se.carlook.services.util.ViewHelper;
 
+import javax.xml.crypto.Data;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -36,14 +38,14 @@ public class CarControl {
         logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     }
 
-    public void ReserveCar(int carId) throws CarAlreadyReservedException{
+    public void ReserveCar(int carId) throws CarAlreadyReservedException, DatabaseConnectionError {
         UserDTO userDTO = ViewHelper.getLoggedInUserDTO();
         User user = UserDAO.getInstance().select(userDTO.getEMail());
 
         carDAO.reserveCar(carId, user);
     }
 
-    public boolean AddNewCar(CarDTO carDTO){
+    public boolean AddNewCar(CarDTO carDTO) throws DatabaseConnectionError {
         // Vertriebler kann neue Autos einfügen
         // Auto einem Vertriebler zugeordnet
         // Vertriebler kann beliebig viele Autos einstellen
@@ -59,13 +61,13 @@ public class CarControl {
         return true;
     }
 
-    public List<CarDTO> getInsertedCarsFromUser(UserDTO userDTO) {
+    public List<CarDTO> getInsertedCarsFromUser(UserDTO userDTO) throws DatabaseConnectionError {
         User user = UserDAO.getInstance().select(userDTO.getEMail());
 
         return carDAO.getAllInsertedCars(user);
     }
 
-    public List<CarDTO> getReservedCarsFromUser(UserDTO userDTO) {
+    public List<CarDTO> getReservedCarsFromUser(UserDTO userDTO) throws DatabaseConnectionError {
         User user = UserDAO.getInstance().select(userDTO.getEMail());
 
         return carDAO.getAllReservedCars(user);
@@ -75,7 +77,7 @@ public class CarControl {
         return carDAO.getAllCars();
     }
 
-    public List<CarDTO> getFilteredCars(String carBrand, int yearOfConstruction, String carDescription) {
+    public List<CarDTO> getFilteredCars(String carBrand, int yearOfConstruction, String carDescription) throws DatabaseConnectionError {
         boolean filterCarBrand = false;
         boolean filterCarDescription = false;
         boolean filterYearOfConstruction = false;

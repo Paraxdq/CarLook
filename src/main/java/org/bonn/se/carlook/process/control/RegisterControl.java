@@ -10,6 +10,7 @@ import org.bonn.se.carlook.model.objects.dto.UserDTO;
 import org.bonn.se.carlook.model.objects.entity.Customer;
 import org.bonn.se.carlook.model.objects.entity.Salesman;
 import org.bonn.se.carlook.model.objects.entity.User;
+import org.bonn.se.carlook.process.control.exception.DatabaseConnectionError;
 import org.bonn.se.carlook.process.control.exception.UserAlreadyRegisteredException;
 
 import java.util.logging.Level;
@@ -40,7 +41,7 @@ public class RegisterControl {
         logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     }
 
-    public boolean registerUser(UserDTO userDTO) throws UserAlreadyRegisteredException {
+    public boolean registerUser(UserDTO userDTO) throws UserAlreadyRegisteredException, DatabaseConnectionError {
         UserDAO userDAO = UserDAO.getInstance();
 
         User user = UserFactory.createEntityFromDTO(userDTO);

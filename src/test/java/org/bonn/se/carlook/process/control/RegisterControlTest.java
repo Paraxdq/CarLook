@@ -4,6 +4,7 @@ import org.bonn.se.carlook.model.dao.SalesmanDAO;
 import org.bonn.se.carlook.model.objects.dto.UserDTO;
 import org.bonn.se.carlook.model.objects.entity.Salesman;
 import org.bonn.se.carlook.process.control.RegisterControl;
+import org.bonn.se.carlook.process.control.exception.DatabaseConnectionError;
 import org.bonn.se.carlook.process.control.exception.UserAlreadyRegisteredException;
 import org.junit.jupiter.api.Test;
 
@@ -27,7 +28,7 @@ class RegisterControlTest {
 
         try {
             reg.registerUser(userDTO);
-        } catch (UserAlreadyRegisteredException e) {
+        } catch (UserAlreadyRegisteredException | DatabaseConnectionError e) {
             result = e.toString();
         }
 
@@ -52,7 +53,7 @@ class RegisterControlTest {
 
         try {
             result = reg.registerUser(userDTO);
-        } catch (UserAlreadyRegisteredException e) {
+        } catch (UserAlreadyRegisteredException | DatabaseConnectionError e) {
             e.printStackTrace();
         }
 
@@ -79,13 +80,18 @@ class RegisterControlTest {
 
         try {
             result = reg.registerUser(userDTO);
-        } catch (UserAlreadyRegisteredException e) {
+        } catch (UserAlreadyRegisteredException | DatabaseConnectionError e) {
             e.printStackTrace();
         }
 
         assertEquals(exceptedResult, result);
 
-        Salesman salesman = SalesmanDAO.getInstance().select(userDTO.getEMail());
+        Salesman salesman = null;
+        try {
+            salesman = SalesmanDAO.getInstance().select(userDTO.getEMail());
+        } catch (DatabaseConnectionError databaseConnectionError) {
+            databaseConnectionError.printStackTrace();
+        }
 
         assertNotNull(salesman);
     }

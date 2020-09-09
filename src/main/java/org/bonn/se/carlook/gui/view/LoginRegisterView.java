@@ -108,6 +108,14 @@ public class LoginRegisterView extends VerticalLayout implements View {
 
                 tfRegisterForeName.clear(); tfRegisterSurName.clear(); tfRegisterEMail.clear(); tfRegisterPassword.clear(); tfRegisterPasswordConfirm.clear();
                 return;
+            } catch (DatabaseConnectionError databaseConnectionError) {
+                Notification notification= new  Notification("Fehler",
+                        "Es konnte keine Verbindung zur Datenbank hergestellt werden!",
+                        Notification.Type.ERROR_MESSAGE);
+
+                notification.setDelayMsec(5000);
+                notification.show(Page.getCurrent());
+                return;
             }
 
             if(result) {

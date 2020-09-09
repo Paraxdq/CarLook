@@ -7,6 +7,7 @@ import com.vaadin.ui.*;
 import org.bonn.se.carlook.model.factory.CarFactory;
 import org.bonn.se.carlook.model.objects.dto.CarDTO;
 import org.bonn.se.carlook.process.control.CarControl;
+import org.bonn.se.carlook.process.control.exception.DatabaseConnectionError;
 import org.bonn.se.carlook.services.util.*;
 
 public class InsertCarView extends VerticalLayout implements View {
@@ -68,7 +69,19 @@ public class InsertCarView extends VerticalLayout implements View {
             carDTO.setYearOfConstruction(Integer.parseInt(tfCarConstruction.getValue()));
             carDTO.setDescription(tfCarDescription.getValue());
 
-            boolean result = CarControl.getInstance().AddNewCar(carDTO);
+            boolean result = false;
+
+            try {
+                result = CarControl.getInstance().AddNewCar(carDTO);
+            } catch(DatabaseConnectionError ex){
+                Notification notification= new  Notification("Fehler",
+                        "Es konnte keine Verbindung zur Datenbank hergestellt werden!",
+                        Notification.Type.ERROR_MESSAGE);
+
+                notification.setDelayMsec(5000);
+                notification.show(Page.getCurrent());
+                return;
+            }
 
             if(result){
                 Notification notification = new Notification("Erfolg",

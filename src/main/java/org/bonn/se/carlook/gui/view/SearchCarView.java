@@ -7,6 +7,7 @@ import com.vaadin.ui.*;
 import org.bonn.se.carlook.model.objects.dto.CarDTO;
 import org.bonn.se.carlook.process.control.CarControl;
 import org.bonn.se.carlook.process.control.exception.CarAlreadyReservedException;
+import org.bonn.se.carlook.process.control.exception.DatabaseConnectionError;
 import org.bonn.se.carlook.services.util.GlobalHelper;
 import org.bonn.se.carlook.services.util.ViewHelper;
 
@@ -87,7 +88,18 @@ public class SearchCarView extends VerticalLayout implements View {
                 carBrand = tfSearchCarBrand.getValue();
                 description = tfSearchCarDescription.getValue();
 
-                List<CarDTO> cars = CarControl.getInstance().getFilteredCars(carBrand, yearOfConstruction, description);
+                List<CarDTO> cars = null;
+
+                try {
+                    cars = CarControl.getInstance().getFilteredCars(carBrand, yearOfConstruction, description);
+                } catch (DatabaseConnectionError ex){
+                    Notification notification= new  Notification("Fehler",
+                            "Es konnte keine Verbindung zur Datenbank hergestellt werden!",
+                            Notification.Type.ERROR_MESSAGE);
+
+                    notification.setDelayMsec(5000);
+                    notification.show(Page.getCurrent());
+                }
 
                 if(cars == null){
                     Label noReservedCars = new Label("Es wurden keine passenden Autos gefunden!");
@@ -124,6 +136,13 @@ public class SearchCarView extends VerticalLayout implements View {
                 notification.show(Page.getCurrent());
             } catch (CarAlreadyReservedException ex){
                 Notification.show("Das ausgewählte Auto wurde bereits von Ihnen reserviert!", Notification.Type.ERROR_MESSAGE);
+            } catch (DatabaseConnectionError ex){
+                Notification notification= new  Notification("Fehler",
+                        "Es konnte keine Verbindung zur Datenbank hergestellt werden!",
+                        Notification.Type.ERROR_MESSAGE);
+
+                notification.setDelayMsec(5000);
+                notification.show(Page.getCurrent());
             }
 
         });
