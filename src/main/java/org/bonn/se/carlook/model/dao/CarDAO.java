@@ -5,6 +5,7 @@ import org.bonn.se.carlook.model.objects.dto.CarDTO;
 import org.bonn.se.carlook.model.objects.entity.Car;
 import org.bonn.se.carlook.model.objects.entity.User;
 import org.bonn.se.carlook.process.control.exception.CarAlreadyReservedException;
+import org.bonn.se.carlook.services.util.GlobalHelper;
 import org.bonn.se.carlook.services.util.Globals;
 
 import java.sql.PreparedStatement;
@@ -13,6 +14,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
+import java.util.stream.Collectors;
 
 public class CarDAO extends AbstractDAO<Car> {
 
@@ -108,7 +110,7 @@ public class CarDAO extends AbstractDAO<Car> {
                     return null;
             }
         } catch(SQLException ex){
-            logger.log(Level.SEVERE, "UserDAO: Error in select function!", ex);
+            logger.log(Level.SEVERE, "CarDAO: Error in select function!", ex);
             return null;
         }
 
@@ -244,5 +246,75 @@ public class CarDAO extends AbstractDAO<Car> {
         }
 
         return true;
+    }
+
+    public List<CarDTO> getFilteredCars(boolean filterCarBrand, String carBrand,
+                                        boolean filterYearOfConstruction, int yearOfConstruction,
+                                        boolean filterCarDescription, String carDescription) {
+        List<CarDTO> carDTOList = new ArrayList<>();
+
+        String sql = String.format(
+            "SELECT * " +
+            "FROM %s.%s ",
+            Globals.DATABASE_NAME,
+            super.table);
+            /*"WHERE %s LIKE ? AND " +
+            "WHERE %s LIKE ? AND " +
+            "WHERE %s LIKE ?",
+            Globals.DATABASE_NAME,
+            super.table,
+            Globals.TABLE_CAR_BRAND,
+            Globals.TABLE_CAR_CONSTRUCTION,
+            Globals.TABLE_CAR_DESC);*/
+
+        try(PreparedStatement stm = connection.getPreparedStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)){
+            if(stm == null)
+                return null;
+
+            /*stm.setString(1, carBrand);
+            stm.setInt(2, yearOfConstruction);
+            stm.setString(3, description);*/
+
+            try (ResultSet rs = stm.executeQuery()) {
+                while (rs.next()){
+                    CarDTO carDTO = CarFactory.createDTO();
+                    super.mapResultSetToCarDTO(rs, carDTO);
+
+                    carDTOList.add(carDTO);
+                }
+            }
+        } catch(SQLException ex){
+            logger.log(Level.SEVERE, "CarDAO: Error in getAllCars function!", ex);
+            return null;
+        }
+
+        List<CarDTO> filteredCarDTOList = null;
+
+        if(filterCarBrand){
+            filteredCarDTOList = carDTOList.stream().filter(c -> c.getCarBrand().toLowerCase().
+                    contains(carBrand.toLowerCase())).collect(Collectors.toList());
+        }
+
+        if(filterYearOfConstruction){
+            if(filteredCarDTOList == null){
+                filteredCarDTOList = carDTOList.stream().filter(d -> d.getYearOfConstruction() == yearOfConstruction).
+                        collect(Collectors.toList());
+            } else{
+                filteredCarDTOList = filteredCarDTOList.stream().filter(d -> d.getYearOfConstruction() == yearOfConstruction).
+                        collect(Collectors.toList());
+            }
+        }
+
+        if(filterCarDescription){
+            if(filteredCarDTOList == null){
+                filteredCarDTOList = carDTOList.stream().filter(e -> e.getDescription().toLowerCase().
+                        contains(carDescription.toLowerCase())).collect(Collectors.toList());
+            } else{
+                filteredCarDTOList = filteredCarDTOList.stream().filter(e -> e.getDescription().toLowerCase().
+                        contains(carDescription.toLowerCase())).collect(Collectors.toList());
+            }
+        }
+
+        return filteredCarDTOList;
     }
 }
