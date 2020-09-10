@@ -17,6 +17,7 @@ import org.bonn.se.carlook.services.util.ViewHelper;
 import javax.xml.crypto.Data;
 import java.util.List;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 public class CarControl {
 
@@ -91,6 +92,34 @@ public class CarControl {
         if(yearOfConstruction != 0)
             filterYearOfConstruction = true;
 
-        return carDAO.getFilteredCars(filterCarBrand, carBrand, filterYearOfConstruction, yearOfConstruction, filterCarDescription, carDescription);
+        List<CarDTO> carDTOList = carDAO.getAllCars();
+        List<CarDTO> filteredCarDTOList = null;
+
+        if(filterCarBrand){
+            filteredCarDTOList = carDTOList.stream().filter(c -> c.getCarBrand().toLowerCase().
+                    contains(carBrand.toLowerCase())).collect(Collectors.toList());
+        }
+
+        if(filterYearOfConstruction){
+            if(filteredCarDTOList == null){
+                filteredCarDTOList = carDTOList.stream().filter(d -> d.getYearOfConstruction() == yearOfConstruction).
+                        collect(Collectors.toList());
+            } else{
+                filteredCarDTOList = filteredCarDTOList.stream().filter(d -> d.getYearOfConstruction() == yearOfConstruction).
+                        collect(Collectors.toList());
+            }
+        }
+
+        if(filterCarDescription){
+            if(filteredCarDTOList == null){
+                filteredCarDTOList = carDTOList.stream().filter(e -> e.getDescription().toLowerCase().
+                        contains(carDescription.toLowerCase())).collect(Collectors.toList());
+            } else{
+                filteredCarDTOList = filteredCarDTOList.stream().filter(e -> e.getDescription().toLowerCase().
+                        contains(carDescription.toLowerCase())).collect(Collectors.toList());
+            }
+        }
+
+        return filteredCarDTOList;
     }
 }
