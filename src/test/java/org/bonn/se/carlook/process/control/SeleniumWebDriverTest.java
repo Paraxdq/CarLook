@@ -34,4 +34,16 @@ public class SeleniumWebDriverTest {
         driver.findElement(By.id("btnRegister")).click();
     }
 
+    @Test
+    public void TestLogin() {
+        if(driver == null)
+            return;
+
+        driver.navigate().to("http://localhost:8080/#!login");
+        driver.manage().window().maximize();
+
+        driver.findElement(By.id("tfLoginEMail")).sendKeys("123@test.de");
+        driver.findElement(By.id("tfLoginPassword")).sendKeys("123");
+        driver.findElement(By.id("btnLogin")).click();
+    }
 }

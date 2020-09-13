@@ -153,10 +153,13 @@ public class LoginRegisterView extends VerticalLayout implements View {
 
         TextField tfLoginEMail = new TextField("E-Mail");
         loginForm.addComponent(tfLoginEMail);
+        tfLoginEMail.setId("tfLoginEMail");
         PasswordField tfLoginPassword = new PasswordField("Passwort");
         loginForm.addComponent(tfLoginPassword);
+        tfLoginPassword.setId("tfLoginPassword");
 
         Button loginButton = new Button("Einloggen");
+        loginButton.setId("btnLogin");
 
         loginForm.addComponent(loginButton);
 
